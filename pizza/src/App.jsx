@@ -67,18 +67,11 @@ function Menu() {
   return (
     <main className="menu">
       <h2>Our Menu</h2>
-      <Pizza
-        name="Pizza Spimaci"
-        ingredients="Tomato, mozarella, spinach, and ricotta cheese"
-        photoName="pizzas/spinaci.jpg"
-        price={12}
-      />
-      <Pizza
-        name="Pizza Funghi"
-        ingredients="Tomato, mozarella, mushrooms, and onion"
-        photoName="pizzas/funghi.jpg"
-        price={12}
-      />
+      <ul className="pizzas">
+        {pizzaData.map((pizza) => (
+          <Pizza pizzaObj={pizza} key={pizza.name} />
+        ))}
+      </ul>
     </main>
   );
 }
@@ -86,11 +79,11 @@ function Menu() {
 function Pizza(props) {
   return (
     <div className="pizza">
-      <img src={props.photoName} />
+      <img src={props.pizzaObj.photoName} />
       <div>
-        <h3>{props.name}</h3>
-        <p>{props.ingredients}</p>
-        <span>€{props.price}</span>
+        <h3>{props.pizzaObj.name}</h3>
+        <p>{props.pizzaObj.ingredients}</p>
+        <span>€{props.pizzaObj.price}</span>
       </div>
     </div>
   );
@@ -103,7 +96,14 @@ function Footer() {
   const isOpen = hour >= openHour && hour < closeHour;
 
   return (
-    <footer className="footer">{new Date().toLocaleTimeString({})}</footer>
+    <footer className="footer">
+      {isOpen ? (
+        <p>We are so happy to see you!</p>
+      ) : (
+        <p>we are not open yet!</p>
+      )}
+      <button className="btn">Order</button>
+    </footer>
   );
 }
 
