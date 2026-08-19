@@ -1,7 +1,3 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "./assets/vite.svg";
-import heroImg from "./assets/hero.png";
 import "./App.css";
 
 const pizzaData = [
@@ -50,33 +46,53 @@ const pizzaData = [
 ];
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
-    <>
+    <div className="container">
       <Header />
       <Menu />
       <Footer />
-    </>
+    </div>
   );
 }
 
 function Header() {
   return (
-    <>
-      <h1>Fast React Pizza Co. </h1>
-    </>
+    <header className="header">
+      <h1>Fast React Pizza Co.</h1>
+    </header>
   );
 }
 
 function Menu() {
   return (
-    <>
-      <h2>Our Menu </h2>
-      <Pizza />
-      <Pizza />
-      <Pizza />
-    </>
+    <main className="menu">
+      <h2>Our Menu</h2>
+      <Pizza
+        name="Pizza Spimaci"
+        ingredients="Tomato, mozarella, spinach, and ricotta cheese"
+        photoName="pizzas/spinaci.jpg"
+        price={12}
+      />
+      <Pizza
+        name="Pizza Funghi"
+        ingredients="Tomato, mozarella, mushrooms, and onion"
+        photoName="pizzas/funghi.jpg"
+        price={12}
+      />
+    </main>
+  );
+}
+
+function Pizza(props) {
+  return (
+    <div className="pizza">
+      <img src={props.photoName} />
+      <div>
+        <h3>{props.name}</h3>
+        <p>{props.ingredients}</p>
+        <span>€{props.price}</span>
+      </div>
+    </div>
   );
 }
 
@@ -84,29 +100,10 @@ function Footer() {
   const hour = new Date().getHours();
   const openHour = 12;
   const closeHour = 22;
-  const isOpen = hour >= openHour && hour <= closeHour;
+  const isOpen = hour >= openHour && hour < closeHour;
 
-  if (!isOpen) {
-    return (
-      <>
-        <footer>
-          <p>
-            We are currently closed. Our working hours are from {openHour}:00 to{" "}
-            {closeHour}:00.
-          </p>
-        </footer>
-      </>
-    );
-  }
-}
-
-function Pizza() {
   return (
-    <>
-      <img src="./public/pizzas/spinaci.jpg" alt="Pizza Spinaci "></img>
-      <h1>Pizza Spinaci</h1>
-      <p>Tomato, mozarella, spinach, and ricotta cheese</p>
-    </>
+    <footer className="footer">{new Date().toLocaleTimeString({})}</footer>
   );
 }
 
